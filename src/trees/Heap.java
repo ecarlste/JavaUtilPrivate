@@ -69,15 +69,51 @@ public class Heap
         // of the heap or until the item
         while (index != 0 && items.get(index).compareTo(items.get(parentIndex)) == -1)
         {
-            parentIndex = getParentIndex(index);
             swap(index, parentIndex);
             index = parentIndex;
+            parentIndex = getParentIndex(index);
         }   
     }
     
     private void heapifyDown(int index)
     {
+        int maxHeapDepth = (int)(Math.log(items.size()) / Math.log(2));
+        int currentDepth = 0;
         
+        int lowestIndex;
+        int leftChildIndex;
+        int rightChildIndex;
+        
+        boolean doneSwapping = false;
+        
+        while (currentDepth < maxHeapDepth && !doneSwapping)
+        {
+            lowestIndex = index;
+            leftChildIndex = getLeftChildIndex(lowestIndex);
+            rightChildIndex = getRightChildIndex(lowestIndex);
+            
+            if (leftChildIndex < items.size() &&
+                items.get(lowestIndex).compareTo(items.get(leftChildIndex)) == 1)
+            {
+                lowestIndex = leftChildIndex;
+            }
+            
+            if (rightChildIndex < items.size() &&
+                items.get(lowestIndex).compareTo(items.get(rightChildIndex)) == 1)
+            {
+                lowestIndex = rightChildIndex;
+            }
+            
+            if (lowestIndex != index)
+            {
+                swap(lowestIndex, index);
+                currentDepth++;
+            }
+            else
+            {
+                doneSwapping = true;
+            }
+        }
     }
     
     private void swap(int index1, int index2)
@@ -87,6 +123,32 @@ public class Heap
         items.set(index1, items.get(index2));
         
         items.set(index2, temp);
+    }
+    
+    @Override
+    public String toString()
+    {
+        String heapString = "[";
+        
+        boolean firstItemPrinted = false;
+        
+        for (Integer item : items)
+        {
+            if (firstItemPrinted)
+            {
+                heapString += ",";
+            }
+            else
+            {
+                firstItemPrinted = true;
+            }
+            
+            heapString += item;
+        }
+        
+        heapString += "]";
+        
+        return heapString;
     }
     
 }
