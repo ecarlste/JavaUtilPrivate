@@ -5,6 +5,7 @@
 package trees;
 
 import java.util.ArrayList;
+import util.Collections;
 
 /**
  *
@@ -69,7 +70,7 @@ public class Heap <T extends Comparable>
         // of the heap or until the item
         while (index != 0 && items.get(index).compareTo(items.get(parentIndex)) == -1)
         {
-            swap(index, parentIndex);
+            Collections.swap(items, index, parentIndex);
             index = parentIndex;
             parentIndex = getParentIndex(index);
         }   
@@ -103,7 +104,7 @@ public class Heap <T extends Comparable>
             
             if (lowestIndex != index)
             {
-                swap(lowestIndex, index);
+                Collections.swap(items, lowestIndex, index);
                 index = lowestIndex;
             }
             else
@@ -111,15 +112,6 @@ public class Heap <T extends Comparable>
                 doneSwapping = true;
             }
         }
-    }
-    
-    private void swap(int index1, int index2)
-    {
-        T temp = items.get(index1);
-        
-        items.set(index1, items.get(index2));
-        
-        items.set(index2, temp);
     }
     
     @Override
@@ -147,5 +139,4 @@ public class Heap <T extends Comparable>
         
         return heapString;
     }
-    
 }
