@@ -10,30 +10,30 @@ import java.util.ArrayList;
  *
  * @author es.carlsten
  */
-public class Heap
+public class Heap <T extends Comparable>
 {
     
-    private ArrayList<Integer> items;
+    private ArrayList<T> items;
     
     public Heap()
     {
         items = new ArrayList<>();
     }
     
-    public void add(Integer integer)
+    public void add(T o)
     {
         // add the new item at the end of the list
-        items.add(integer);
+        items.add(o);
         
         // bubble up the item added until the heap properties have been restored
         heapifyUp(items.size()-1);
     }
     
-    public Integer remove()
+    public T remove()
     {
         // save a copy of the item at the head of the array list, since this is
         // the item with top priority
-        Integer temp = items.get(0);
+        T temp = items.get(0);
         
         // remove the item from the end of the array list and put it in the
         // beginning of the array list
@@ -115,7 +115,7 @@ public class Heap
     
     private void swap(int index1, int index2)
     {
-        Integer temp = items.get(index1);
+        T temp = items.get(index1);
         
         items.set(index1, items.get(index2));
         
@@ -129,7 +129,7 @@ public class Heap
         
         boolean firstItemPrinted = false;
         
-        for (Integer item : items)
+        for (T item : items)
         {
             if (firstItemPrinted)
             {
