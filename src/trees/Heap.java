@@ -77,16 +77,13 @@ public class Heap
     
     private void heapifyDown(int index)
     {
-        int maxHeapDepth = (int)(Math.log(items.size()) / Math.log(2));
-        int currentDepth = 0;
-        
         int lowestIndex;
         int leftChildIndex;
         int rightChildIndex;
         
         boolean doneSwapping = false;
         
-        while (currentDepth < maxHeapDepth && !doneSwapping)
+        while (!doneSwapping)
         {
             lowestIndex = index;
             leftChildIndex = getLeftChildIndex(lowestIndex);
@@ -107,7 +104,7 @@ public class Heap
             if (lowestIndex != index)
             {
                 swap(lowestIndex, index);
-                currentDepth++;
+                index = lowestIndex;
             }
             else
             {

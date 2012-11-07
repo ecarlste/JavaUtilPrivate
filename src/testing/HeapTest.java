@@ -20,14 +20,16 @@ public class HeapTest {
         Heap heap = new Heap();
         
         heap.add(new Integer(9));
-        System.out.print(heap);
         heap.add(new Integer(5));
-        System.out.print(heap);
         heap.add(new Integer(3));
-        System.out.print(heap);
         heap.add(new Integer(2));
-        System.out.print(heap);
         heap.add(new Integer(1));
-        System.out.print(heap);
+        heap.add(new Integer(11));
+        heap.add(new Integer(6));
+        heap.add(new Integer(4));
+        heap.add(new Integer(8));
+        System.out.println(heap);
+        System.out.println("removing" + heap.remove() + " : " + heap);
+        System.out.println("removing" + heap.remove() + " : " + heap);
     }
 }
