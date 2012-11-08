@@ -5,7 +5,7 @@
 package trees;
 
 import java.util.ArrayList;
-import util.Collections;
+import collections.Collections;
 
 /**
  *
