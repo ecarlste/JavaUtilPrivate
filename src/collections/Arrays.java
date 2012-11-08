@@ -104,10 +104,10 @@ public abstract class Arrays
     // random array of int is created, it is returned.
     public static int[] makeRandomArray(int length)
     {
-        Random rand = new Random(59717);
+        Random rand = new Random();
         int[] randomArray = new int[length];
         for (int i = 0; i < randomArray.length; i++) {
-            randomArray[i] = rand.nextInt(20);
+            randomArray[i] = rand.nextInt(length);
         }
         return randomArray;
     }
