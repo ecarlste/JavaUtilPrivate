@@ -1,5 +1,5 @@
 
-package collections;
+package javautil.collections;
 
 public class QueueNode<T> {
 

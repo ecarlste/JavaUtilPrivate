@@ -1,7 +1,7 @@
 
-package sorting;
+package javautil.sorting;
 
-import collections.Arrays;
+import javautil.collections.Arrays;
 import java.util.ArrayList;
 
 public abstract class Sorter {

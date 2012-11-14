@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package trees;
+package javautil.trees;
 
 import java.util.ArrayList;
-import collections.Collections;
+import javautil.collections.Collections;
 
 /**
  *
