@@ -1,14 +1,20 @@
 
 package javautil.sorting;
 
-import java.util.ArrayList;
 import java.util.List;
 import javautil.collections.Arrays;
 import javautil.collections.Collections;
 
-public abstract class Sorter {
+/**
+ *
+ * @author es.carlsten
+ */
+public final class Sorter {
     
+    private static final int MAXTHREADS = Runtime.getRuntime().availableProcessors();
     private static final int CUTOFF = 20;
+    
+    private Sorter(){}
     
     public static int[] insertionSort(int[] array)
     {
@@ -49,7 +55,7 @@ public abstract class Sorter {
         return array;
     }
     
-    public static <T extends Comparable> void insertionSort2(ArrayList<T> array)
+    public static <T extends Comparable<? super T>> void insertionSort2(List<T> array)
     {    
         for (int i = 1; i < array.size(); i++)
         {
