@@ -1,10 +1,14 @@
 
 package javautil.sorting;
 
-import javautil.collections.Arrays;
 import java.util.ArrayList;
+import java.util.List;
+import javautil.collections.Arrays;
+import javautil.collections.Collections;
 
 public abstract class Sorter {
+    
+    private static final int CUTOFF = 20;
     
     public static int[] insertionSort(int[] array)
     {
@@ -54,12 +58,26 @@ public abstract class Sorter {
             //while (j > 0 && array[j] < array[j-1])
             while (j > 0 && array.get(j).compareTo(array.get(j-1)) == -1)
             {
-                //int temp = array[j];
-                T temp = array.get(j);
-                //array[j] = array[j-1];
-                array.set(j, array.get(j-1));
-                //array[j-1] = temp;
-                array.set(j-1, temp);
+                Collections.swap(array, j, j-1);
+                
+                j--;
+            }
+        }
+    }
+    
+    public static <T extends Comparable<? super T>> void
+            insertionSort(List<T> list, int leftIndex, int rightIndex)
+    {
+        int stopIndex = rightIndex + 1;
+        
+        for (int i = leftIndex+1; i < stopIndex; i++)
+        {
+            int j = i;
+            
+            //while (j > 0 && array[j] < array[j-1])
+            while (j > leftIndex && list.get(j).compareTo(list.get(j-1)) == -1)
+            {
+                Collections.swap(list, j, j-1);
                 
                 j--;
             }
@@ -166,6 +184,77 @@ public abstract class Sorter {
         }
         
         return merged;
+    }
+
+    public static <T extends Comparable<? super T>> void quickSort(List<T> list)
+    {
+        quickSort(list, 0, list.size()-1);
+    }
+    
+    public static <T extends Comparable<? super T>> void quickSort(List<T> list,
+            int leftIndex, int rightIndex)
+    {
+        if (leftIndex + CUTOFF <= rightIndex)
+        {
+            T pivot = median3(list, leftIndex, rightIndex);
+            
+            // start by partitioning the list
+            int i = leftIndex;
+            int j = rightIndex-1;
+            
+            for ( ; ; )
+            {
+                while (list.get(++i).compareTo(pivot) < 0)
+                {}
+                
+                while (list.get(--j).compareTo(pivot) > 0)
+                {}
+                
+                if (i < j)
+                {
+                    Collections.swap(list, i, j);
+                }
+                else
+                {
+                    break; // exit the for loop
+                }
+            }
+            
+            Collections.swap(list, i, rightIndex-1);
+        
+            quickSort(list, leftIndex, i-1);
+            quickSort(list, i+1, rightIndex);
+        }
+        else
+        {
+            insertionSort(list, leftIndex, rightIndex);
+        }
+    }
+    
+    private static <T extends Comparable<? super T>> T median3(List<T> list,
+            int leftIndex, int rightIndex)
+    {
+        int centerIndex = (leftIndex + rightIndex) / 2;
+        
+        if (list.get(centerIndex).compareTo(list.get(leftIndex)) < 0)
+        {
+            Collections.swap(list, leftIndex, centerIndex);
+        }
+        
+        if (list.get(rightIndex).compareTo(list.get(leftIndex)) < 0)
+        {
+            Collections.swap(list, leftIndex, rightIndex);
+        }
+        
+        if (list.get(rightIndex).compareTo(list.get(centerIndex)) < 0)
+        {
+            Collections.swap(list, centerIndex, rightIndex);
+        }
+        
+        // put the pivot at position rightIndex-1
+        Collections.swap(list, centerIndex, rightIndex-1);
+        
+        return list.get(rightIndex-1);
     }
     
 }
